@@ -46,14 +46,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TILD,        KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,          KC_CIRC,         KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,         \
       _______,        _______, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R,          KC_UNDS,         KC_LBRC, KC_RBRC, KC_EQL,  KC_PIPE, _______,         \
       _______,        _______, _______, KC_ACL0, KC_ACL1, KC_ACL2,          _______,         _______, KC_LT,   KC_GT,   KC_BSLS, _______,         \
-      _______,        _______, _______, _______, _______, KC_ENT,           KC_ENT,          _______, _______, _______, _______, _______          \
+      _______,        _______, _______, _______, _______, RALT_T(KC_ENT),   RSFT_T(KC_ENT),  _______, _______, _______, _______, _______          \
       ),
 
   [_RAISE] = LAYOUT_planck_grid( \
       KC_GRV,         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,             KC_6,            KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,         \
       _______,        _______, KC_MS_L, KC_MS_U, KC_MS_D, KC_MS_R,          KC_MINS,         KC_LCBR, KC_RCBR, KC_PLUS, KC_COLN, _______,         \
       _______,        KC_BTN5, KC_BTN4, KC_BTN3, KC_BTN2, KC_BTN1,          _______,         _______, _______, _______, _______, _______,         \
-      _______,        _______, _______, _______, _______, KC_ENT,           KC_ENT,          _______, _______, _______, _______, _______          \
+      _______,        _______, _______, _______, _______, RALT_T(KC_ENT),   RSFT_T(KC_ENT),  _______, _______, _______, _______, _______          \
       ),
 
   [_ADJUST] = LAYOUT_planck_grid( \
