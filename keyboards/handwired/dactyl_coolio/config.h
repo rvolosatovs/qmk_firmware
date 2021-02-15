@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    dudzie
 #define PRODUCT         Dactyl Coolio
-#define DESCRIPTION     Best Keyboard Ever
+#define DESCRIPTION     Split keyboard
 
 /* key matrix size */
 /* rows are doubled up */
