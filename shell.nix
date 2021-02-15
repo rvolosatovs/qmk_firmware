@@ -8,6 +8,8 @@ let
 
   pkgs = import nixpkgs { };
 
+  pkgs-local = import <nixpkgs> {};
+
   hjson = with pkgs.python3Packages; buildPythonPackage rec {
     pname = "hjson";
     version = "3.0.1";
@@ -71,7 +73,7 @@ in
 mkShell {
   name = "qmk-firmware";
 
-  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils git pythonEnv ]
+  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils git pythonEnv pkgs-local.qmk_cli ]
     ++ lib.optional avr [
       pkgsCross.avr.buildPackages.binutils
       pkgsCross.avr.buildPackages.gcc8
