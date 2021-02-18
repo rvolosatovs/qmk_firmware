@@ -1,112 +1,136 @@
-// copied from users/manna-harbour_miryoku/manna-harbour_miryoku.h
-// generated from users/manna-harbour_miryoku/miryoku.org  -*- buffer-read-only: t -*-
-
 #include QMK_KEYBOARD_H
 
-#define KC_NP KC_NO // key is not present
-#define KC_NA KC_NO // present but not available for use
-#define KC_NU KC_NO // available but not used
+enum layers { BASE, ALR, MEDR, NAVR, MOUR, ALL, NSSL, NSL, FUNL };
 
-// non-KC_ keycodes
-#define KC_RST RESET
-#define KC_TOG RGB_TOG
-#define KC_MOD RGB_MOD
-#define KC_HUI RGB_HUI
-#define KC_SAI RGB_SAI
-#define KC_VAI RGB_VAI
+#define U_NP KC_NO // key is not present
+#define U_NA KC_NO // present but not available for use
+#define U_NU KC_NO // available but not used
 
-enum layers { BASE, MBO, MEDR, NAVR, MOUR, NSSL, NSL, FUNL };
-
-
-// copied from users/manna-harbour_miryoku/manna-harbour_miryoku.c
-// generated from users/manna-harbour_miryoku/miryoku.org  -*- buffer-read-only: t -*-
+#define U_RDO KC_AGIN
+#define U_PST S(KC_INS)
+#define U_CPY C(KC_INS)
+#define U_CUT S(KC_DEL)
+#define U_UND KC_UNDO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-#if defined MIRYOKU_ALPHAS_QWERTY
-  [BASE] = LAYOUT_miryoku(
-    KC_Q,              KC_W,              KC_E,              KC_R,              KC_T,              KC_Y,              KC_U,              KC_I,              KC_O,              KC_P,
-    LGUI_T(KC_A),      LALT_T(KC_S),      LCTL_T(KC_D),      LSFT_T(KC_F),      KC_G,              KC_H,              LSFT_T(KC_J),      LCTL_T(KC_K),      LALT_T(KC_L),      LGUI_T(KC_QUOT),
-    KC_Z,              ALGR_T(KC_X),      KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,           ALGR_T(KC_DOT),    KC_SLSH,
-    KC_NP,             KC_NP,             LT(MEDR, KC_ESC),  LT(NAVR, KC_SPC),  LT(MOUR, KC_TAB),  LT(NSSL, KC_ENT),  LT(NSL, KC_BSPC),  LT(FUNL, KC_DEL),  KC_NP,             KC_NP
+  [BASE] = LAYOUT(
+    LT(FUNL, KC_TAB), KC_Q,         KC_W,         KC_E,             KC_R,              KC_T,                KC_Y,             KC_U,            KC_I,             KC_O,           KC_P,            LT(MEDR, KC_ESC),
+    LT(NSL,  KC_SPC), LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D),     LSFT_T(KC_F),      KC_G,                KC_H,             RSFT_T(KC_J),    RCTL_T(KC_K),     LALT_T(KC_L),   RGUI_T(KC_QUOT), LT(NAVR, KC_BSPC),
+    LT(NSSL, KC_ENT), KC_Z,         ALGR_T(KC_X), KC_C,             KC_V,              KC_B,                KC_N,             KC_M,            KC_COMM,          ALGR_T(KC_DOT), KC_SLSH,         LT(MOUR, KC_DEL),
+                      XXXXXXX,      MO(ALR),      LT(MEDR, KC_ESC), LT(NAVR, KC_BSPC), LT(MOUR, KC_DEL),    LT(NSSL, KC_TAB), LT(NSL, KC_SPC), LT(FUNL, KC_ENT), MO(ALL),        XXXXXXX,
+                                                                    XXXXXXX,           XXXXXXX,             XXXXXXX,          XXXXXXX
   ),
-#elif defined MIRYOKU_ALPHAS_DVORAK
-  [BASE] = LAYOUT_miryoku(
-    KC_QUOT,           KC_COMM,           KC_DOT,            KC_P,              KC_Y,              KC_F,              KC_G,              KC_C,              KC_R,              KC_L,
-    LGUI_T(KC_A),      LALT_T(KC_O),      LCTL_T(KC_E),      LSFT_T(KC_U),      KC_I,              KC_D,              LSFT_T(KC_H),      LCTL_T(KC_T),      LALT_T(KC_N),      LGUI_T(KC_S),
-    KC_SLSH,           ALGR_T(KC_Q),      KC_J,              KC_K,              KC_X,              KC_B,              KC_M,              KC_W,              ALGR_T(KC_V),      KC_Z,
-    KC_NP,             KC_NP,             LT(MEDR, KC_ESC),  LT(NAVR, KC_SPC),  LT(MOUR, KC_TAB),  LT(NSSL, KC_ENT),  LT(NSL, KC_BSPC),  LT(FUNL, KC_DEL),  KC_NP,             KC_NP
+  [ALR] = LAYOUT(
+    _______,          _______,      _______,      _______,          _______,           _______,             _______,          _______,         _______,          _______,        _______,         _______,
+    _______,          _______,      _______,      _______,          _______,           _______,             _______,          KC_J,            KC_K,             KC_L,           KC_QUOT,         _______,
+    _______,          _______,      _______,      _______,          _______,           _______,             _______,          _______,         _______,          KC_DOT,         _______,         _______,
+                      _______,      _______,      _______,          _______,           _______,             _______,          _______,         _______,          _______,        _______,
+                                                                    _______,           XXXXXXX,             _______,          _______
   ),
-#elif defined MIRYOKU_ALPHAS_COLEMAK
-  [BASE] = LAYOUT_miryoku(
-    KC_Q,              KC_W,              KC_F,              KC_P,              KC_G,              KC_J,              KC_L,              KC_U,              KC_Y,              KC_QUOT,
-    LGUI_T(KC_A),      LALT_T(KC_R),      LCTL_T(KC_S),      LSFT_T(KC_T),      KC_D,              KC_H,              LSFT_T(KC_N),      LCTL_T(KC_E),      LALT_T(KC_I),      LGUI_T(KC_O),
-    KC_Z,              ALGR_T(KC_X),      KC_C,              KC_V,              KC_B,              KC_K,              KC_M,              KC_COMM,           ALGR_T(KC_DOT),    KC_SLSH,
-    KC_NP,             KC_NP,             LT(MEDR, KC_ESC),  LT(NAVR, KC_SPC),  LT(MOUR, KC_TAB),  LT(NSSL, KC_ENT),  LT(NSL, KC_BSPC),  LT(FUNL, KC_DEL),  KC_NP,             KC_NP
+  [ALL] = LAYOUT(
+    _______,          _______,      _______,      _______,          _______,           _______,             _______,          _______,         _______,          _______,        _______,         _______,
+    _______,          KC_A,         KC_S,         KC_D,             KC_F,              _______,             _______,          _______,         _______,          _______,        _______,         _______,
+    _______,          _______,      KC_X,         _______,          _______,           _______,             _______,          _______,         _______,          _______,        _______,         _______,
+                      _______,      _______,      _______,          _______,           _______,             _______,          _______,         _______,          _______,        _______,
+                                                                    _______,           _______,             XXXXXXX,          _______
   ),
-#elif defined MIRYOKU_ALPHAS_COLEMAKDH
-  [BASE] = LAYOUT_miryoku(
-    KC_Q,              KC_W,              KC_F,              KC_P,              KC_B,              KC_J,              KC_L,              KC_U,              KC_Y,              KC_QUOT,
-    LGUI_T(KC_A),      LALT_T(KC_R),      LCTL_T(KC_S),      LSFT_T(KC_T),      KC_G,              KC_K,              LSFT_T(KC_N),      LCTL_T(KC_E),      LALT_T(KC_I),      LGUI_T(KC_O),
-    KC_Z,              ALGR_T(KC_X),      KC_C,              KC_D,              KC_V,              KC_M,              KC_H,              KC_COMM,           ALGR_T(KC_DOT),    KC_SLSH,
-    KC_NP,             KC_NP,             LT(MEDR, KC_ESC),  LT(NAVR, KC_SPC),  LT(MOUR, KC_TAB),  LT(NSSL, KC_ENT),  LT(NSL, KC_BSPC),  LT(FUNL, KC_DEL),  KC_NP,             KC_NP
-  ),
-#elif defined MIRYOKU_ALPHAS_WORKMAN
-  [BASE] = LAYOUT_miryoku(
-    KC_Q,              KC_D,              KC_R,              KC_W,              KC_B,              KC_J,              KC_F,              KC_U,              KC_P,              KC_QUOT,
-    LGUI_T(KC_A),      LALT_T(KC_S),      LCTL_T(KC_H),      LSFT_T(KC_T),      KC_G,              KC_Y,              LSFT_T(KC_N),      LCTL_T(KC_E),      LALT_T(KC_O),      LGUI_T(KC_I),
-    KC_Z,              ALGR_T(KC_X),      KC_M,              KC_C,              KC_V,              KC_K,              KC_L,              KC_COMM,           ALGR_T(KC_DOT),    KC_SLSH,
-    KC_NP,             KC_NP,             LT(MEDR, KC_ESC),  LT(NAVR, KC_SPC),  LT(MOUR, KC_TAB),  LT(NSSL, KC_ENT),  LT(NSL, KC_BSPC),  LT(FUNL, KC_DEL),  KC_NP,             KC_NP
-  ),
-#else
-  [BASE] = LAYOUT_miryoku(
-    KC_Q,              KC_W,              KC_F,              KC_P,              KC_B,              KC_J,              KC_L,              KC_U,              KC_Y,              KC_QUOT,
-    LGUI_T(KC_A),      LALT_T(KC_R),      LCTL_T(KC_S),      LSFT_T(KC_T),      KC_G,              KC_M,              LSFT_T(KC_N),      LCTL_T(KC_E),      LALT_T(KC_I),      LGUI_T(KC_O),
-    KC_Z,              ALGR_T(KC_X),      KC_C,              KC_D,              KC_V,              KC_K,              KC_H,              KC_COMM,           ALGR_T(KC_DOT),    KC_SLSH,
-    KC_NP,             KC_NP,             LT(MEDR, KC_ESC),  LT(NAVR, KC_SPC),  LT(MOUR, KC_TAB),  LT(NSSL, KC_ENT),  LT(NSL, KC_BSPC),  LT(FUNL, KC_DEL),  KC_NP,             KC_NP
-  ),
-#endif
+
   [NAVR] = LAYOUT_miryoku(
-    KC_RST,  KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_AGIN, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE,
-    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NA,   KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-    KC_NA,   KC_ALGR, KC_NA,   KC_NA,   KC_NA,   KC_INS,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,
-    KC_NP,   KC_NP,   KC_NA,   KC_NA,   KC_NA,   KC_ENT,  KC_BSPC, KC_DEL,  KC_NP,   KC_NP
+    RESET,   U_NA,    U_NA,    U_NA,    U_NA,    U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,
+    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA,    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_CAPS,
+    U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_INS,
+    U_NP,    U_NP,    U_NA,    U_NA,    U_NA,    KC_ENT,  KC_SPC,  KC_TAB,  U_NP,    U_NP
   ),
   [MOUR] = LAYOUT_miryoku(
-    KC_RST,  KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_NU,   KC_NU,   KC_NU,   KC_NU,   KC_NU,
-    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NA,   KC_NU,   KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,
-    KC_NA,   KC_ALGR, KC_NA,   KC_NA,   KC_NA,   KC_NU,   KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R,
-    KC_NP,   KC_NP,   KC_NA,   KC_NA,   KC_NA,   KC_BTN1, KC_BTN3, KC_BTN2, KC_NP,   KC_NP
-  ),
-  [MBO] = LAYOUT_miryoku(
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_NP,   KC_NP,   KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN3, KC_BTN2, KC_NP,   KC_NP
+    RESET,   U_NA,    U_NA,    U_NA,    U_NA,    U_NU,    U_NU,    U_NU,    U_NU,    U_NU,
+    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA,    KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, U_NU,
+    U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, U_NU,
+    U_NP,    U_NP,    U_NA,    U_NA,    U_NA,    KC_BTN1, KC_BTN3, KC_BTN2, U_NP,    U_NP
   ),
   [MEDR] = LAYOUT_miryoku(
-    KC_RST,  KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_TOG,  KC_MOD,  KC_HUI,  KC_SAI,  KC_VAI,
-    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NA,   KC_NU,   KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT,
-    KC_NA,   KC_ALGR, KC_NA,   KC_NA,   KC_NA,   KC_NU,   KC_NU,   KC_NU,   KC_NU,   KC_NU,
-    KC_NP,   KC_NP,   KC_NA,   KC_NA,   KC_NA,   KC_MSTP, KC_MPLY, KC_MUTE, KC_NP,   KC_NP
+    RESET,   U_NA,    U_NA,    U_NA,    U_NA,    RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI,
+    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA,    KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, U_NU,
+    U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    U_NU,    U_NU,    U_NU,    U_NU,    U_NU,
+    U_NP,    U_NP,    U_NA,    U_NA,    U_NA,    KC_MSTP, KC_MPLY, KC_MUTE, U_NP,    U_NP
   ),
+
   [FUNL] = LAYOUT_miryoku(
-    KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR, KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_RST,
-    KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SLCK, KC_NA,   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
-    KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_PAUS, KC_NA,   KC_NA,   KC_NA,   KC_ALGR, KC_NA,
-    KC_NP,   KC_NP,   KC_APP,  KC_SPC,  KC_TAB,  KC_NA,   KC_NA,   KC_NA,   KC_NP,   KC_NP
+    KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR, U_NA,    U_NA,    U_NA,    U_NA,    RESET,
+    KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SLCK, U_NA,    KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI,
+    KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_PAUS, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
+    U_NP,    U_NP,    KC_APP,  KC_BSPC, KC_DEL,  U_NA,    U_NA,    U_NA,    U_NP,    U_NP
   ),
   [NSL] = LAYOUT_miryoku(
-    KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC, KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_RST,
-    KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL,  KC_NA,   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
-    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_BSLS, KC_NA,   KC_NA,   KC_NA,   KC_ALGR, KC_NA,
-    KC_NP,   KC_NP,   KC_DOT,  KC_0,    KC_MINS, KC_NA,   KC_NA,   KC_NA,   KC_NP,   KC_NP
+    KC_GRV,  KC_7,    KC_8,    KC_9,    KC_0,    U_NA,    U_NA,    U_NA,    U_NA,    RESET,
+    KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL,  U_NA,    KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI,
+    KC_LABK, KC_1,    KC_2,    KC_3,    KC_RABK, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
+    U_NP,    U_NP,    KC_LBRC, KC_RBRC, KC_MINS, U_NA,    U_NA,    U_NA,    U_NP,    U_NP
   ),
   [NSSL] = LAYOUT_miryoku(
-    KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_RST,
-    KC_COLN, KC_DLR,  KC_PERC, KC_CIRC, KC_PLUS, KC_NA,   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
-    KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE, KC_NA,   KC_NA,   KC_NA,   KC_ALGR, KC_NA,
-    KC_NP,   KC_NP,   KC_GT,   KC_RPRN, KC_UNDS, KC_NA,   KC_NA,   KC_NA,   KC_NP,   KC_NP
+    KC_TILD, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, U_NA,    U_NA,    U_NA,    U_NA,    RESET,
+    KC_COLN, KC_DLR,  KC_PERC, KC_CIRC, KC_PLUS, U_NA,    KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI,
+    KC_BSLS, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
+    U_NP,    U_NP,    KC_LCBR, KC_RCBR, KC_UNDS, U_NA,    U_NA,    U_NA,    U_NP,    U_NP
   )
 };
 
+#ifdef RETRO_TAPPING_PER_KEY
+bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LGUI_T(KC_A):
+            return true;
+        case LALT_T(KC_S):
+            return true;
+        case LCTL_T(KC_D):
+            return true;
+        case LSFT_T(KC_F):
+            return true;
+        case LSFT_T(KC_J):
+            return true;
+        case LCTL_T(KC_K):
+            return true;
+        case LALT_T(KC_L):
+            return true;
+        case LGUI_T(KC_QUOT):
+            return true;
+        default:
+            return false;
+    }
+}
+#endif
 
+#ifdef OLED_DRIVER_ENABLE
+void oled_task_user(void) {
+    oled_write_P(PSTR("Layer: "), false);
+    switch (get_highest_layer(layer_state)) {
+        case BASE:
+            oled_write_ln_P(PSTR("BASE\n"), false);
+            break;
+        case MEDR:
+            oled_write_ln_P(PSTR("MEDR"), false);
+            break;
+        case NAVR:
+            oled_write_ln_P(PSTR("NAVR"), false);
+            break;
+        case MOUR:
+            oled_write_ln_P(PSTR("MOUR"), false);
+            break;
+        case FUNL:
+            oled_write_ln_P(PSTR("FUNL"), false);
+            break;
+        case NSL:
+            oled_write_ln_P(PSTR("NSL"), false);
+            break;
+        case NSSL:
+            oled_write_ln_P(PSTR("NSSL"), false);
+            break;
+        default:
+            oled_write_ln_P(PSTR("???"), false);
+    }
+
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+}
+#endif
