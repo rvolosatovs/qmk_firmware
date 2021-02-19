@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LT(FUNL, KC_TAB), KC_Q,         KC_W,         KC_E,             KC_R,              KC_T,                KC_Y,             KC_U,            KC_I,             KC_O,           KC_P,            LT(MEDR, KC_ESC),
     LT(NSL,  KC_SPC), LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D),     LSFT_T(KC_F),      KC_G,                KC_H,             RSFT_T(KC_J),    RCTL_T(KC_K),     LALT_T(KC_L),   RGUI_T(KC_QUOT), LT(NAVR, KC_BSPC),
     LT(NSSL, KC_ENT), KC_Z,         ALGR_T(KC_X), KC_C,             KC_V,              KC_B,                KC_N,             KC_M,            KC_COMM,          ALGR_T(KC_DOT), KC_SLSH,         LT(MOUR, KC_DEL),
-                      XXXXXXX,      MO(ALR),      LT(MEDR, KC_ESC), LT(NAVR, KC_BSPC), LT(MOUR, KC_DEL),    LT(NSSL, KC_TAB), LT(NSL, KC_SPC), LT(FUNL, KC_ENT), MO(ALL),        XXXXXXX,
+                      XXXXXXX,      MO(ALR),      LT(MEDR, KC_DEL), LT(NAVR, KC_BSPC), LT(MOUR, KC_ESC),    LT(NSSL, KC_ENT), LT(NSL, KC_SPC), LT(FUNL, KC_TAB), MO(ALL),        XXXXXXX,
                                                                     XXXXXXX,           XXXXXXX,             XXXXXXX,          XXXXXXX
   ),
   [ALR] = LAYOUT(
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR, U_NA,    U_NA,    U_NA,    U_NA,    RESET,
     KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SLCK, U_NA,    KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI,
     KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_PAUS, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
-    U_NP,    U_NP,    KC_APP,  KC_BSPC, KC_DEL,  U_NA,    U_NA,    U_NA,    U_NP,    U_NP
+    U_NP,    U_NP,    KC_DEL, KC_BSPC, KC_APP,  U_NA,    U_NA,    U_NA,    U_NP,    U_NP
   ),
   [NSL] = LAYOUT_miryoku(
     KC_GRV,  KC_7,    KC_8,    KC_9,    KC_0,    U_NA,    U_NA,    U_NA,    U_NA,    RESET,
@@ -104,7 +104,13 @@ void oled_task_user(void) {
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case BASE:
-            oled_write_ln_P(PSTR("BASE\n"), false);
+            oled_write_ln_P(PSTR("BASE"), false);
+            break;
+        case ALR:
+            oled_write_ln_P(PSTR("ALR"), false);
+            break;
+        case ALL:
+            oled_write_ln_P(PSTR("ALL"), false);
             break;
         case MEDR:
             oled_write_ln_P(PSTR("MEDR"), false);
