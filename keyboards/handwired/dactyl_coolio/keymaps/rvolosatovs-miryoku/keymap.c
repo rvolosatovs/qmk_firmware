@@ -14,11 +14,11 @@ enum layers { BASE, ALR, MEDR, NAVR, MOUR, ALL, NSSL, NSL, FUNL };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
-    LT(FUNL, KC_TAB), KC_Q,         KC_W,         KC_E,             KC_R,              KC_T,                KC_Y,             KC_U,            KC_I,             KC_O,           KC_P,            LT(MEDR, KC_ESC),
-    LT(NSL,  KC_SPC), LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D),     LSFT_T(KC_F),      KC_G,                KC_H,             RSFT_T(KC_J),    RCTL_T(KC_K),     LALT_T(KC_L),   RGUI_T(KC_QUOT), LT(NAVR, KC_BSPC),
-    LT(NSSL, KC_ENT), KC_Z,         ALGR_T(KC_X), KC_C,             KC_V,              KC_B,                KC_N,             KC_M,            KC_COMM,          ALGR_T(KC_DOT), KC_SLSH,         LT(MOUR, KC_DEL),
-                      XXXXXXX,      MO(ALR),      LT(MEDR, KC_DEL), LT(NAVR, KC_BSPC), LT(MOUR, KC_ESC),    LT(NSSL, KC_ENT), LT(NSL, KC_SPC), LT(FUNL, KC_TAB), MO(ALL),        XXXXXXX,
-                                                                    XXXXXXX,           XXXXXXX,             XXXXXXX,          XXXXXXX
+    LT(FUNL, KC_TAB), KC_Q,         KC_W,             KC_E,              KC_R,             KC_T,                KC_Y,    KC_U,             KC_I,            KC_O,             KC_P,            LT(MEDR, KC_ESC),
+    LT(NSL,  KC_SPC), LGUI_T(KC_A), LALT_T(KC_S),     LCTL_T(KC_D),      LSFT_T(KC_F),     KC_G,                KC_H,    RSFT_T(KC_J),     RCTL_T(KC_K),    LALT_T(KC_L),     RGUI_T(KC_QUOT), LT(NAVR, KC_BSPC),
+    LT(NSSL, KC_ENT), KC_Z,         ALGR_T(KC_X),     KC_C,              KC_V,             KC_B,                KC_N,    KC_M,             KC_COMM,         ALGR_T(KC_DOT),   KC_SLSH,         LT(MOUR, KC_DEL),
+                      XXXXXXX,      LT(MEDR, KC_DEL), LT(NAVR, KC_BSPC), LT(MOUR, KC_ESC), MO(ALR),             MO(ALL), LT(NSSL, KC_ENT), LT(NSL, KC_SPC), LT(FUNL, KC_TAB), XXXXXXX,
+                                                                         XXXXXXX,          XXXXXXX,             XXXXXXX, XXXXXXX
   ),
   [ALR] = LAYOUT(
     _______,          _______,      _______,      _______,          _______,           _______,             _______,          _______,         _______,          _______,        _______,         _______,
@@ -58,19 +58,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR, U_NA,    U_NA,    U_NA,    U_NA,    RESET,
     KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SLCK, U_NA,    KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI,
     KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_PAUS, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
-    U_NP,    U_NP,    KC_DEL, KC_BSPC, KC_APP,  U_NA,    U_NA,    U_NA,    U_NP,    U_NP
+    U_NP,    U_NP,    KC_DEL,  KC_BSPC, KC_APP,  U_NA,    U_NA,    U_NA,    U_NP,    U_NP
   ),
   [NSL] = LAYOUT_miryoku(
     KC_GRV,  KC_7,    KC_8,    KC_9,    KC_0,    U_NA,    U_NA,    U_NA,    U_NA,    RESET,
     KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL,  U_NA,    KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI,
     KC_LABK, KC_1,    KC_2,    KC_3,    KC_RABK, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
-    U_NP,    U_NP,    KC_LBRC, KC_RBRC, KC_MINS, U_NA,    U_NA,    U_NA,    U_NP,    U_NP
+    U_NP,    U_NP,    KC_MINS, KC_LBRC, KC_RBRC, U_NA,    U_NA,    U_NA,    U_NP,    U_NP
   ),
   [NSSL] = LAYOUT_miryoku(
     KC_TILD, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, U_NA,    U_NA,    U_NA,    U_NA,    RESET,
     KC_COLN, KC_DLR,  KC_PERC, KC_CIRC, KC_PLUS, U_NA,    KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI,
     KC_BSLS, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
-    U_NP,    U_NP,    KC_LCBR, KC_RCBR, KC_UNDS, U_NA,    U_NA,    U_NA,    U_NP,    U_NP
+    U_NP,    U_NP,    KC_UNDS, KC_LCBR, KC_RCBR, U_NA,    U_NA,    U_NA,    U_NP,    U_NP
   )
 };
 
@@ -98,6 +98,24 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     }
 }
 #endif
+
+uint16_t last_press = 0;
+uint16_t first_press = 0;
+
+void matrix_scan_user(void) {
+    if (last_press > 0 && timer_elapsed(last_press) > 2 * 60000) {
+        first_press = 0;
+        last_press = 0;
+    }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    last_press = timer_read();
+    if (first_press == 0) {
+        first_press = last_press;
+    }
+    return true;
+}
 
 #ifdef OLED_DRIVER_ENABLE
 void oled_task_user(void) {
@@ -137,6 +155,13 @@ void oled_task_user(void) {
     led_t led_state = host_keyboard_led_state();
     oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-    oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+    oled_write_ln_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+
+
+
+    /*uint16_t session_ms = timer_elapsed(first_press);*/
+    if (first_press > 0 && timer_elapsed(first_press) > 15 * 60000) {
+        oled_write_ln_P(PSTR("BREAK TIME"), false);
+    }
 }
 #endif
